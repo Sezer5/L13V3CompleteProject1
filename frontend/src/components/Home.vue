@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-between">
+    <Spinner :store="productsStore" />
     <Sidebar />
-    <ProductListItem />
+    <ProductList />
   </div>
 </template>
 
@@ -10,7 +11,7 @@ import { useProductStore } from "@/stores/useProductStore.js";
 import Sidebar from "./layouts/Sidebar.vue";
 import { onMounted } from "vue";
 import ProductList from "./product/ProductList.vue";
-import ProductListItem from "./product/ProductListItem.vue";
+import Spinner from "./layouts/Spinner.vue";
 
 const productsStore = useProductStore();
 
