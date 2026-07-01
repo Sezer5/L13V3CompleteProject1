@@ -1,13 +1,18 @@
 <template>
   <div class="card m-2 shadow h-100" style="width: 18rem">
     <img
-      :src="'http://127.0.0.1:8000/' + product.thumbnail"
+      :src="IMAGE_PATH + product.thumbnail"
       class="card-img-top"
       style="height: 200px; object-fit: cover"
       alt="Product Image"
     />
     <div class="card-body d-flex flex-column">
-      <h5 class="card-title">{{ product.name }}</h5>
+      <router-link
+        class="text-decoration-none text-dark"
+        :to="`/product/${product.slug}`"
+      >
+        <h5 class="card-title text-decoration-none">{{ product.name }}</h5>
+      </router-link>
       <p class="card-text flex-grow-1">
         {{ product.desc?.substring(0, 50) }}...
       </p>
@@ -25,6 +30,8 @@
   </div>
 </template>
 <script setup>
+import { IMAGE_PATH } from "@/helpers/config";
+
 const data = defineProps({
   product: {
     type: Object,

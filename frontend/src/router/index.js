@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const Home = () => import('@/components/Home.vue')
 const Login = () => import('@/components/Login.vue')
 const Register = () => import('@/components/Register.vue')
+const Product = () => import('@/components/product/Product.vue')
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register,
+    },
+    {
+      path: '/product/:slug',
+      name: 'product',
+      component: Product,
     },
     
   ],

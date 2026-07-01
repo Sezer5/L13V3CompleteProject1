@@ -1,47 +1,48 @@
 <template>
   <div
-    class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white col-md-3 shadow"
+    class="d-flex flex-column p-4 text-dark bg-white shadow"
+    style="min-height: 100vh"
   >
     <a
       href="/"
-      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-black text-decoration-none"
+      class="d-flex align-items-center mb-4 text-dark text-decoration-none"
     >
-      <svg class="bi me-2" width="40" height="32">
-        <use xlink:href="#bootstrap" />
-      </svg>
-      <span class="fs-4">Vue T-shirt</span>
+      <span class="fs-4 fw-bold">Vue T-shirt</span>
     </a>
-    <hr />
 
-    <ul class="nav nav-pills flex-column mb-auto">
-      <span class="fs-5">Colors</span>
-      <hr />
-      <div class="d-flex flex-wrap gap-2 mb-3">
+    <SearchForm class="mb-4" />
+
+    <div class="mb-4">
+      <h6 class="text-uppercase text-muted small fw-bold mb-3">Colors</h6>
+      <div class="d-flex flex-wrap gap-2">
         <div
           v-for="color in productsStore.colors"
           :key="color.id"
-          :style="{
-            backgroundColor: color.name,
-            width: '24px',
-            height: '24px',
-          }"
+          class="color-circle border"
+          :style="{ backgroundColor: color.name }"
           @click="productsStore.getProductByColor(color.slug)"
-          class="rounded-circle border"
+          title="Filtrele"
         ></div>
       </div>
-      <hr />
-      <span class="fs-5">Sizes</span>
-      <hr />
-      <div class="d-flex flex-wrap gap-2 mb-3">
-        <div
-          class="badge bg-secondary"
+    </div>
+
+    <div class="mb-4">
+      <h6 class="text-uppercase text-muted small fw-bold mb-3">Sizes</h6>
+      <div class="d-flex flex-wrap gap-2">
+        <span
           v-for="size in productsStore.sizes"
           :key="size.id"
+          class="size-badge"
           @click="productsStore.getProductBySize(size.slug)"
         >
           {{ size.name }}
-        </div>
+        </span>
       </div>
+    </div>
+
+    <hr class="my-3" />
+
+    <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <router-link to="/" class="nav-link" active-class="active"
           >Home</router-link
@@ -52,49 +53,58 @@
           >Login</router-link
         >
       </li>
-      <li class="nav-item">
-        <router-link to="/register" class="nav-link" active-class="active"
-          >Register</router-link
-        >
-      </li>
     </ul>
 
-    <hr />
-    <div class="dropdown">
+    <div class="dropdown mt-3 border-top pt-3">
       <a
         href="#"
-        class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+        class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
         id="dropdownUser1"
         data-bs-toggle="dropdown"
-        aria-expanded="false"
       >
         <img
           src="https://github.com/mdo.png"
-          alt=""
           width="32"
           height="32"
           class="rounded-circle me-2"
         />
         <strong>mdo</strong>
       </a>
-      <ul
-        class="dropdown-menu dropdown-menu-dark text-small shadow"
-        aria-labelledby="dropdownUser1"
-      >
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
     </div>
   </div>
 </template>
 <script setup>
 import { useProductStore } from "@/stores/useProductStore";
-
+import SearchForm from "./SearchForm.vue";
 const productsStore = useProductStore();
 </script>
 
 <style scoped>
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-circle:hover {
+  transform: scale(1.2);
+  border-color: #333 !important;
+}
+
+.size-badge {
+  padding: 5px 12px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.size-badge:hover {
+  background: #e2e6ea;
+  border-color: #adb5bd;
+}
 </style>
