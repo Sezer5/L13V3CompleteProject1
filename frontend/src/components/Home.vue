@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex justify-content-between">
-    <Spinner :store="productsStore" />
+    <!-- <Spinner :store="productsStore" /> -->
+    <Spinner2 :isLoading="productsStore.isLoading" />
     <Sidebar />
     <ProductList />
   </div>
@@ -12,6 +13,7 @@ import Sidebar from "./layouts/Sidebar.vue";
 import { onMounted } from "vue";
 import ProductList from "./product/ProductList.vue";
 import Spinner from "./layouts/Spinner.vue";
+import Spinner2 from "./layouts/Spinner2.vue";
 
 const productsStore = useProductStore();
 

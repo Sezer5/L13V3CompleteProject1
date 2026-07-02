@@ -28,7 +28,11 @@
         </div>
         <div class="d-flex flex-wrap justify-content-start">
           <div
-            class="border border-light-subtle shadow-sm border-2 shadow-sm border-2 rounded mb-1 me-1"
+            :class="`${
+              data.chosenColor?.id === color.id
+                ? 'border border-light-subtle shadow border-2 shadow-sm border-2 rounded-5'
+                : ''
+            } mb-1 me-1`"
             v-for="color in productDetailStore.product?.colors"
             :key="color.id"
             :style="{
@@ -37,13 +41,19 @@
               height: '30px',
               cursor: 'pointer',
             }"
+            @click="setChoosenColor(color)"
           ></div>
         </div>
         <div class="d-flex flex-wrap justify-content-start">
           <div
-            class="nav-item mb-1 m-1"
+            :class="`${
+              data.chosenSize?.id === size.id
+                ? 'btn btn-danger mb-3'
+                : 'nav-item mb-1 m-1'
+            }`"
             v-for="size in productDetailStore.product?.sizes"
             :key="size.id"
+            @click="setChoosenSize(size)"
           >
             <button class="btn btn-sm btn-outline-secondary text-dark">
               {{ size.name }}
@@ -96,7 +106,17 @@ onMounted(() => {
 
 const data = reactive({
   qty: 1,
+  chosenColor: null,
+  chosenSize: null,
 });
+
+const setChoosenColor = (color) => {
+  data.chosenColor = color;
+};
+
+const setChoosenSize = (size) => {
+  data.chosenSize = size;
+};
 </script>
 
 <style scoped>
