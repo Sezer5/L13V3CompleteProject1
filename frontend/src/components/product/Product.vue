@@ -71,7 +71,24 @@
             />
           </div>
           <div class="ms-2">
-            <button class="btn btn-danger btn-block">
+            <button
+              class="btn btn-danger btn-block"
+              :disabled="!data.chosenColor || !data.chosenSize"
+              @click="
+                cartStore.addToCart({
+                  ref: makeUniqueId(10),
+                  product_id: productDetailStore.product?.id,
+                  name: productDetailStore.product?.name,
+                  slug: productDetailStore.product?.slug,
+                  qty: data.qty,
+                  color: data.chosenColor?.name,
+                  size: data.chosenSize?.name,
+                  maxQty: productDetailStore.product?.qty,
+                  image: productDetailStore.product?.thumbnail,
+                  copuon_id: null,
+                })
+              "
+            >
               <i class="bi bi-cart-plus"></i> Add To Cart
             </button>
           </div>
@@ -88,10 +105,12 @@ import { useProductDetailsStore } from "@/stores/useProductDetailsStore";
 import Spinner from "@/components/layouts/Spinner.vue";
 import { IMAGE_PATH } from "@/helpers/config";
 import { ZoomImg } from "vue3-zoomer";
+import { useCartStore } from "@/stores/useCartStore";
+import { makeUniqueId } from "@/helpers/config";
 //define the product store
 
 const productDetailStore = useProductDetailsStore();
-
+const cartStore = useCartStore();
 //define the route
 
 const route = useRoute();
